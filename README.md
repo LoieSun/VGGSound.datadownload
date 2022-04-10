@@ -5,31 +5,31 @@ download the VGGSound data from YouTube by using Colab
 
 ## Open Colab
  drive to Google disk, run the following code
- ''''python
+ ````python
   from google.colab import drive
   drive.mount('/content/drive', force_remount=True
   %cd /content/drive/My Drive/
   !mkdir Download
   %cd /content/drive/My Drive/Download
- ''''
+ ````
  <br/><br/>
  
  download ffmpeg, run the following code
- ''''python
+ ````python
   % cd /content/sample_data
   ! wget https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz
   ! tar -xf ffmpeg-release-amd64-static.tar.xz
- ''''
+ ````
  <br/><br/>
  
  pip packages, run code
- ''''python
+ ````python
   ! pip install opencv-python
   ! pip install pafy
   ! pip install soundfile
-  # ! pip install subprocess
+  #! pip install subprocess
   ! pip install youtube_dl
-  ''''
+  ````
   <br/><br/>
   
  edit /usr/local/lib/python3.7/dist-packages/pafy/backend_youtube_dl.py 
@@ -40,7 +40,7 @@ download the VGGSound data from YouTube by using Colab
  <br/><br/>
  
  count the number of videos of 8 classes same as VAS dataset, running following code
- ''''python
+ ````python
   #labels_in_VAS = ['baby', 'cough', 'dog', 'drum', 'gun', 'fireworks', 'hammer', 'sneeze']
   with open('/content/drive/MyDrive/vggsound.csv') as f:
      lines = f.readlines()
@@ -50,11 +50,11 @@ download the VGGSound data from YouTube by using Colab
      if line[2] == 'label in VGGSound' or ....:
         label_list.append(line[:2])
   print ('label_in_VAS:',len(label_list))
-  ''''
+  ````
   <br/><br/>
   
   read video_id and start_time(s) from vggsound.csv
-  ''''python
+  ````python
   with open('/content/drive/MyDrive/vggsound.csv') as f:
     lines = f.readlines()
     fireworks_dict = {}
@@ -64,11 +64,11 @@ download the VGGSound data from YouTube by using Colab
         fireworks_list.append(line[:2])
         fireworks_dict.update({line[0]:line[1]})
   print(len(fireworks_list), len(fireworks_dict))
-  ''''
+  ````
   <br/><br/>
   
   download audio from YouTube
-  ''''python
+  ````python
   or i in range(len(gun_list)):
   f1 = open('/content/drive/MyDrive/data/gun/error_log.txt','a+')
   f2 = open('/content/drive/MyDrive/data/gun/correct_log.txt','a+')
@@ -106,14 +106,14 @@ download the VGGSound data from YouTube by using Colab
         f2.write(ytid+'\n')
   except:
     f1.write(ytid+'\n')
-    ''''
-    <br/><br/>
+  ````
+  <br/><br/>
   
   
   transform audio as melspecvqgan
-  ''''python
+  ````python
   
-  ''''
+  ````
   <br/><br/>
   
   select clean audio by human, and save the the clean audio id in one txt
@@ -122,7 +122,7 @@ download the VGGSound data from YouTube by using Colab
   
   download video from Youtube, following the id in clean audio txt
   code like audio downloading code
-  ''''python
+  ````python
    best_video = video.getbestvideo()
    best_video_url = best_video.url
    
@@ -134,7 +134,7 @@ download the VGGSound data from YouTube by using Colab
         '-framerate', '22',     # Specify the framerate
         '-vcodec', 'h264',      # Specify the output encoding
         video_filepath]
-   ''''
+   ````
   
   
 
