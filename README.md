@@ -69,11 +69,11 @@ download the VGGSound data from YouTube by using Colab
   
   download audio from YouTube
   ````python
-  or i in range(len(gun_list)):
-  f1 = open('/content/drive/MyDrive/data/gun/error_log.txt','a+')
-  f2 = open('/content/drive/MyDrive/data/gun/correct_log.txt','a+')
+  for i in range(len(label_list)):
+  f1 = open('../error_log.txt','a+')
+  f2 = open('../correct_log.txt','a+')
   #Get youtube-id
-  ytid, ts_start = gun_list[i]
+  ytid, ts_start = label_list[i]
   duration = 10
   ts_end = int(ts_start) + duration
   #Get the URL to the video page
@@ -84,7 +84,7 @@ download the VGGSound data from YouTube by using Colab
     print('success')
     best_audio = video.getbestaudio()
     best_audio_url = best_audio.url
-    audio_filepath = os.path.join('/content/drive/MyDrive/data/gun', ytid + '.' + audio_codec)
+    audio_filepath = os.path.join('../', ytid + '.' + audio_codec)
     #Download the audio
     audio_dl_args = [ffmpeg_path, '-n',
         '-ss', str(ts_start),    #The beginning of the trim window
@@ -124,14 +124,13 @@ download the VGGSound data from YouTube by using Colab
               data = np.load(mel_path)
               #plotsub figure
               if ids%150==0:
-                  plt.savefig('/workspace/0325SoundGeneration/data/VGGSound_melplot/%s/test_sub_%d.pdf'
+                  plt.savefig('../%s/test_sub_%d.pdf'
                               %(label,cnt), dpi=300)
                   plt.close()
                   plt.figure(figsize=(3,100))
                   cnt += 1 
               plt.subplot(150,1,ids+1-(cnt-1)*150)
-              plt.title(line+' :D Loie is the Sweety Cookies',
-                        fontsize=5)
+              plt.title(line, fontsize=5)
               plt.axis('off')
               plt.imshow(data)
           except:
