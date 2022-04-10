@@ -112,7 +112,31 @@ download the VGGSound data from YouTube by using Colab
   
   transform audio as melspecvqgan
   ````python
-  
+  cnt = 0
+  for i in range(len(labels)):
+      label = labels[i]
+      datalist_path = os.path.join(wav_dir, label, 'correct_log.txt')
+      ids = 0
+      for line in open(datalist_path):
+          line = line.split('\n')[0]
+          try:
+              mel_path = os.path.join(mel_dir, label, line + '.npy')
+              data = np.load(mel_path)
+              #plotsub figure
+              if ids%150==0:
+                  plt.savefig('/workspace/0325SoundGeneration/data/VGGSound_melplot/%s/test_sub_%d.pdf'
+                              %(label,cnt), dpi=300)
+                  plt.close()
+                  plt.figure(figsize=(3,100))
+                  cnt += 1 
+              plt.subplot(150,1,ids+1-(cnt-1)*150)
+              plt.title(line+' :D Loie is the Sweety Cookies',
+                        fontsize=5)
+              plt.axis('off')
+              plt.imshow(data)
+          except:
+              print('ERROR!')
+          ids += 1
   ````
   <br/><br/>
   
